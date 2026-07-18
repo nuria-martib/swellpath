@@ -15,6 +15,7 @@ import {
 } from 'lucide-react-native';
 import { format, parseISO } from 'date-fns';
 
+import { MonthCalendar } from '@/components/MonthCalendar';
 import { PACKS } from '@/lib/packs';
 import { computeMetrics } from '@/lib/metrics';
 import { useSurfStore } from '@/lib/store';
@@ -26,7 +27,15 @@ export default function ProgressScreen() {
   const submissions = useSurfStore((s) => s.submissions);
   const profile = useSurfStore((s) => s.profile);
 
+  const [selectedDay, setSelectedDay] = useState<string | undefined>(undefined);
+
   const metrics = useMemo(() => computeMetrics(sessions), [sessions]);
+
+  const surfedDays = useMemo(() => sessions.map((s) => s.date), [sessions]);
+  const visibleSessions = useMemo(
+    () => (selectedDay ? sessions.filter((s) => s.date === selectedDay) : sessions),
+    [sessions, selectedDay],
+  );
 
   const maneuversUnlocked = useMemo(
     () => PACKS.filter((p) => p.steps.every((step) => completedSteps.includes(step.id))).length,
@@ -114,7 +123,30 @@ export default function ProgressScreen() {
       ) : null}
 
       <View className="mt-6 flex-row items-center justify-between">
-        <Text className="text-ink text-lg font-bold">Session log</Text>
+        <Text className="text-ink text-lg font-bold">Surf calendar</Text>
+        {selectedDay ? (
+          <Pressable
+            onPress={() => setSelectedDay(undefined)}
+            className="bg-foam rounded-full px-3 py-1.5"
+          >
+            <Text className="text-ocean-deep text-sm font-semibold">Show all</Text>
+          </Pressable>
+        ) : null}
+      </View>
+      {sessions.length > 0 ? (
+        <View className="mt-3">
+          <MonthCalendar
+            markedDates={surfedDays}
+            selected={selectedDay}
+            onSelectDate={(iso) => setSelectedDay((prev) => (prev === iso ? undefined : iso))}
+          />
+        </View>
+      ) : null}
+
+      <View className="mt-6 flex-row items-center justify-between">
+        <Text className="text-ink text-lg font-bold">
+          {selectedDay ? format(parseISO(selectedDay), 'd MMM') : 'Session log'}
+        </Text>
         <Link href="/log-session" asChild>
           <Pressable className="bg-ocean flex-row items-center gap-1 rounded-full px-3 py-1.5">
             <Plus size={16} color="#ffffff" />
@@ -136,9 +168,19 @@ export default function ProgressScreen() {
             </Button>
           </Link>
         </View>
+      ) : visibleSessions.length === 0 ? (
+        <View className="bg-surface border-border mt-3 items-center rounded-2xl border border-dashed p-6">
+          <Waves size={28} color="#8aa0b6" />
+          <Text className="text-ink mt-2 text-base font-semibold">No surf this day</Text>
+          <Link href={{ pathname: '/log-session', params: { date: selectedDay ?? '' } }} asChild>
+            <Button className="mt-4">
+              <Button.Label>Log a session for this day</Button.Label>
+            </Button>
+          </Link>
+        </View>
       ) : (
         <View className="mt-3 gap-3">
-          {sessions.map((s) => (
+          {visibleSessions.map((s) => (
             <SessionRow key={s.id} session={s} />
           ))}
         </View>

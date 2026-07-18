@@ -3,14 +3,15 @@ import { KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from 'rea
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button, Input, Label, Text, TextField } from 'heroui-native';
 import { format } from 'date-fns';
-import { Star } from 'lucide-react-native';
+import { CalendarDays, Star } from 'lucide-react-native';
 
+import { MonthCalendar } from '@/components/MonthCalendar';
 import { useSurfStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
 
 export default function LogSession() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ id?: string }>();
+  const params = useLocalSearchParams<{ id?: string; date?: string }>();
   const addSession = useSurfStore((s) => s.addSession);
   const updateSession = useSurfStore((s) => s.updateSession);
   const spots = useSurfStore((s) => s.spots);
@@ -28,7 +29,11 @@ export default function LogSession() {
   const [rating, setRating] = useState(editing?.rating ?? 4);
   const [notes, setNotes] = useState(editing?.notes ?? '');
 
-  const date = editing?.date ?? format(new Date(), 'yyyy-MM-dd');
+  const [date, setDate] = useState(
+    editing?.date ??
+      (params.date && params.date.length > 0 ? params.date : format(new Date(), 'yyyy-MM-dd')),
+  );
+  const [showCalendar, setShowCalendar] = useState(false);
   const canSave = title.trim().length > 0 && spotName.trim().length > 0;
 
   const save = async () => {
@@ -63,10 +68,28 @@ export default function LogSession() {
           <Text className="text-ink text-2xl font-bold">
             {editing ? 'Edit session' : 'Log a session'}
           </Text>
-          <Text className="text-slate-soft mt-0.5 text-base">
-            {format(new Date(`${date}T00:00:00`), 'EEEE, d MMMM')}
-          </Text>
+          <Pressable
+            onPress={() => setShowCalendar((v) => !v)}
+            className="mt-1.5 flex-row items-center gap-1.5 self-start"
+            hitSlop={6}
+          >
+            <CalendarDays size={16} color="#2f6bb0" />
+            <Text className="text-ocean-deep text-base font-semibold">
+              {format(new Date(`${date}T00:00:00`), 'EEEE, d MMMM yyyy')}
+            </Text>
+          </Pressable>
         </View>
+
+        {showCalendar ? (
+          <MonthCalendar
+            selected={date}
+            disableFuture
+            onSelectDate={(iso) => {
+              setDate(iso);
+              setShowCalendar(false);
+            }}
+          />
+        ) : null}
 
         <TextField>
           <Label>Title</Label>
