@@ -114,46 +114,97 @@ export const PACKS: Pack[] = [
     accentColor: 'seagrass',
     heroImage: 'bottomturn',
     overview:
-      'The bottom turn sets up every manoeuvre. Learn to compress at the base of the wave and redirect that energy back up the face.',
+      'The bottom turn is where all your speed and every manoeuvre begins. You can already ride the face — now sharpen the compression, rail engagement and projection that turn a flat, drifting turn into an explosive one. Study the model in the water, then drill the exact movements on a surfskate until they are automatic.',
     prerequisites: ['Consistent pop up', 'Can ride across the face (trim)'],
+    landSectionTitle: 'Practice on solid ground',
+    landSectionSubtitle:
+      'Two surfskate drills to groove the compression and flow of a strong bottom turn on dry land.',
+    guideSectionTitle: 'The bottom turn, frame by frame',
+    guideSectionSubtitle:
+      'Study each position in the water reference, then feel for the same shapes on your surfskate.',
     steps: [
+      {
+        id: 'bt-analyse-1',
+        kind: 'analyse',
+        title: 'Analyse a bottom turn in the water',
+        duration: '10 min',
+        image: 'wave',
+        summary:
+          'Before drilling anything, build the model. Watch the in-water reference at full speed, then slow it down and study the frames below. You are not learning to turn — you are hunting where you leak speed: a turn started too early, a rail buried too shallow, or a body that stands up instead of driving through the arc.',
+        cues: [
+          'Watch how low the surfer compresses at the base of the wave',
+          'See the inside rail buried and held through the whole arc',
+          'Track the leading arm and eyes — they point up the face before the board follows',
+        ],
+        videoId: 'rh-WwXFKTcw', // in-water bottom-turn reference
+      },
       {
         id: 'bt-ss-1',
         kind: 'surfskate',
         title: 'Compression pumps',
         duration: '15 min',
         image: 'surfskate',
-        summary: 'Generate speed by compressing and extending through carves on a gentle bank.',
-        cues: ['Bend deep in the turn', 'Extend as you come out', 'Lead with your eyes and chest'],
-        videoId: '', // paste YouTube id here
+        summary:
+          'Groove the up-and-down compression that powers a bottom turn. Pump the surfskate through deep, controlled compressions and extensions so the movement becomes automatic — the same load you will drive into the base of the wave.',
+        cues: [
+          'Compress deep and low through the bottom of each pump',
+          'Extend fully as you come out to release the stored energy',
+          'Lead every move with your eyes and chest, not your feet',
+        ],
+        videoId: '0t-roluW0PM', // surfskate compression pumps
       },
       {
         id: 'bt-ss-2',
         kind: 'surfskate',
-        title: 'Draw the arc',
+        title: 'Speed & flow',
         duration: '15 min',
         image: 'carve',
-        summary: 'Practise long, drawn-out bottom-turn arcs — no rushing the redirect.',
+        summary:
+          'Now link that compression into long, flowing arcs. This drill trains the smooth, drawn-out rail engagement of a real bottom turn — carrying speed through the turn instead of stalling or rushing the redirect.',
         cues: [
-          'Weight the toes/heels smoothly',
-          'Keep the arc round, not sharp',
-          'Trailing arm back',
+          'Draw the arc long and round — never sharp or rushed',
+          'Roll smoothly from rail to rail, keeping constant pressure',
+          'Keep your trailing arm back and let the turn flow, not jerk',
         ],
-        videoId: '', // paste YouTube id here
+        videoId: 'Ie3iErcwuwc', // surfskate speed & flow lesson
+      },
+    ],
+    guide: [
+      {
+        image: 'bottomturn-step-1',
+        title: 'Set the line off the top',
+        description:
+          'Coming out of the drop, aim for the base of the wave with speed and your eyes already scanning up the face.',
       },
       {
-        id: 'bt-water-1',
-        kind: 'water',
-        title: 'In the water: load & release',
-        duration: 'Session',
-        image: 'wave',
-        summary: 'On unbroken waves, drop, compress at the base, and project back toward the lip.',
-        cues: [
-          'Look up the face early',
-          'Bury the inside rail',
-          'Point your leading hand where you go',
-        ],
-        videoId: '', // paste YouTube id here
+        image: 'bottomturn-step-2',
+        title: 'Compress at the base',
+        description:
+          'Bend deep at the lowest point of the wave, loading your legs like a spring ready to release.',
+      },
+      {
+        image: 'bottomturn-step-3',
+        title: 'Bury the inside rail',
+        description:
+          'Lean into the turn and dig the inside rail, letting it carry the arc rather than skidding flat.',
+      },
+      {
+        image: 'bottomturn-step-4',
+        title: 'Lead with eyes + arm',
+        description:
+          'Point your leading arm and eyes up toward the section you want to hit — the body follows the look.',
+      },
+      {
+        image: 'bottomturn-step-5',
+        title: 'Drive + project',
+        description:
+          'Extend out of the compression to fire the stored energy up the face toward the lip.',
+      },
+      {
+        image: 'bottomturn-step-6',
+        title: 'Exit with speed',
+        description:
+          'Come out of the turn tall and balanced, carrying maximum speed into your next manoeuvre.',
       },
     ],
   },
