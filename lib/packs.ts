@@ -143,7 +143,7 @@ export const PACKS: Pack[] = [
         kind: 'surfskate',
         title: 'Compression pumps',
         duration: '15 min',
-        image: 'surfskate',
+        image: 'compression-pumps',
         summary:
           'Groove the up-and-down compression that powers a bottom turn. Pump the surfskate through deep, controlled compressions and extensions so the movement becomes automatic — the same load you will drive into the base of the wave.',
         cues: [
@@ -158,7 +158,7 @@ export const PACKS: Pack[] = [
         kind: 'surfskate',
         title: 'Speed & flow',
         duration: '15 min',
-        image: 'carve',
+        image: 'speed-flow',
         summary:
           'Now link that compression into long, flowing arcs. This drill trains the smooth, drawn-out rail engagement of a real bottom turn — carrying speed through the turn instead of stalling or rushing the redirect.',
         cues: [
