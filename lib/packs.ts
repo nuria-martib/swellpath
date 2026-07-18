@@ -238,12 +238,87 @@ export const PACKS: Pack[] = [
     ],
   },
   {
+    id: 'snap',
+    title: 'Snap Pack',
+    maneuver: 'Snap',
+    tagline: 'A vertical, explosive hit off the lip',
+    level: 'intermediate',
+    order: 5,
+    accentColor: 'coral',
+    heroImage: 'topturn',
+    overview:
+      'The snap is the sharp, aggressive cousin of the top turn — a fast, near-vertical strike that throws spray and resets your position on the wave. Once your bottom and top turns flow, learn to tighten the arc and snap off both the lip (top snap) and the base (bottom snap). It is all about timing, commitment, and rebounding cleanly.',
+    prerequisites: ['Consistent top turn', 'Comfortable in steeper, punchier sections'],
+    steps: [
+      {
+        id: 'snap-ss-1',
+        kind: 'surfskate',
+        title: 'Tighten the arc',
+        duration: '20 min',
+        image: 'carve',
+        summary:
+          'Drive up a steep bank and snap a tight, quick pivot instead of a drawn-out carve. The snap lives in a shorter, sharper radius than the top turn.',
+        cues: [
+          'Compress hard on the approach',
+          'Snap the hips and shoulders together',
+          'Keep the radius tight — punchy, not flowing',
+        ],
+        videoId: '', // paste YouTube id here
+      },
+      {
+        id: 'snap-ss-2',
+        kind: 'surfskate',
+        title: 'Snap & rebound',
+        duration: '20 min',
+        image: 'surfskate',
+        summary:
+          'Practise redirecting hard and rebounding straight back into the line without stalling. A clean snap always exits with speed.',
+        cues: [
+          'Spot your exit before you commit',
+          'Re-centre weight the instant you redirect',
+          'Drive out — never wash off all your speed',
+        ],
+        videoId: '', // paste YouTube id here
+      },
+      {
+        id: 'snap-water-1',
+        kind: 'water',
+        title: 'In the water: top snap',
+        duration: 'Session',
+        image: 'wave',
+        summary:
+          'Use a strong bottom turn to project vertically, then snap off the top lip and redirect back down the face — sharper and later than a top turn.',
+        cues: [
+          'Hit the lip as it pitches, not before',
+          'Throw the tail with your back foot',
+          'Keep your eyes and chest pointing back down the face',
+        ],
+        videoId: '', // paste YouTube id here
+      },
+      {
+        id: 'snap-water-2',
+        kind: 'water',
+        title: 'In the water: bottom snap',
+        duration: 'Session',
+        image: 'wave',
+        summary:
+          'On a fast, open face, snap hard off the base of the wave to reset your line and generate a burst of speed without going to the lip.',
+        cues: [
+          'Compress deep at the base',
+          'Bury the inside rail and release sharply',
+          'Project back down the line as you unweight',
+        ],
+        videoId: '', // paste YouTube id here
+      },
+    ],
+  },
+  {
     id: 'air',
     title: 'Air Pack',
     maneuver: 'Air',
     tagline: 'Leave the water behind',
     level: 'advanced',
-    order: 5,
+    order: 6,
     accentColor: 'coral',
     heroImage: 'air',
     overview:

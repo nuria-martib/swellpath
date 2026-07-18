@@ -47,6 +47,9 @@ export function assessSurfer(a: AssessmentAnswers): AssessmentResult {
     recommendedPackId = 'cutback';
   } else if (a.topTurn < 2) {
     recommendedPackId = 'top-turn';
+  } else if (a.air < 1) {
+    // Top turn is consistent but airs aren't happening yet — sharpen it into a snap first.
+    recommendedPackId = 'snap';
   } else {
     recommendedPackId = 'air';
   }
