@@ -35,6 +35,14 @@ export interface PackStep {
   videoId?: string;
 }
 
+/** A single photo + description in an in-water sequential guide. */
+export interface GuideStep {
+  /** image asset key registered in lib/images.ts */
+  image: string;
+  title: string;
+  description: string;
+}
+
 export interface Pack {
   id: string;
   title: string;
@@ -48,6 +56,8 @@ export interface Pack {
   overview: string;
   prerequisites: string[];
   steps: PackStep[];
+  /** optional sequential photo guide (e.g. the 8-step pop-up breakdown) */
+  guide?: GuideStep[];
 }
 
 export type SubmissionStatus = 'reviewing' | 'graded';

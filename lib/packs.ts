@@ -1,5 +1,4 @@
 import type { CommunitySpot, Pack } from './types';
-
 // To attach a tutorial video to a step, set its `videoId` to a YouTube
 // video id — the part after `v=` in a watch URL (e.g. for
 // https://www.youtube.com/watch?v=dQw4w9WgXcQ the id is "dQw4w9WgXcQ").
@@ -42,7 +41,7 @@ export const PACKS: Pack[] = [
         summary:
           'Find your natural stance width and weighting rolling slowly. The board should feel like an extension of your pop-up landing.',
         cues: ['Feet over the bolts', 'Weight 60% front foot', 'Shoulders stacked over hips'],
-        videoId: '', // paste YouTube id here
+        videoId: '9rz-ucDwjVU', // out-of-water pop-up practice
       },
       {
         id: 'popup-water-1',
@@ -57,7 +56,53 @@ export const PACKS: Pack[] = [
           'Pop the instant you feel the glide',
           'Chin up — look where you want to go',
         ],
-        videoId: '', // paste YouTube id here
+        videoId: 'XYZ46bGfZ08', // visualize the pop up in the water
+      },
+    ],
+    guide: [
+      {
+        image: 'popup-step-1',
+        title: 'Paddle position',
+        description:
+          'Lie centred on the board, chest up, toes near the tail. Paddle strong and level.',
+      },
+      {
+        image: 'popup-step-2',
+        title: 'Feel the glide',
+        description: 'As the wave picks you up you feel weightless. This is the moment to commit.',
+      },
+      {
+        image: 'popup-step-3',
+        title: 'Hands under ribs',
+        description:
+          'Plant your hands flat on the rails under your ribcage, not up by your shoulders.',
+      },
+      {
+        image: 'popup-step-4',
+        title: 'Press up',
+        description:
+          'Push your chest and hips up in one explosive press, keeping your eyes up the line.',
+      },
+      {
+        image: 'popup-step-5',
+        title: 'Back foot in',
+        description: 'Drive the back foot in first, landing across the stringer over the tail pad.',
+      },
+      {
+        image: 'popup-step-6',
+        title: 'Front foot follows',
+        description: 'Slide the front foot between your hands, over the bolts, in the same motion.',
+      },
+      {
+        image: 'popup-step-7',
+        title: 'Land low',
+        description:
+          'Land in a low, athletic stance with knees bent and weight centred over the board.',
+      },
+      {
+        image: 'popup-step-8',
+        title: 'Eyes up, ride',
+        description: 'Stand tall, look where you want to go, and set your line down the face.',
       },
     ],
   },

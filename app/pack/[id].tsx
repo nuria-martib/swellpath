@@ -8,6 +8,7 @@ import {
   ChevronLeft,
   ChevronUp,
   Circle,
+  ListOrdered,
   Play,
   Star,
   Upload,
@@ -19,7 +20,7 @@ import { YouTubePlayer } from '@/components/YouTubePlayer';
 import { packImage } from '@/lib/images';
 import { getPack } from '@/lib/packs';
 import { MAX_ATTEMPTS, useSurfStore } from '@/lib/store';
-import type { PackStep, Submission } from '@/lib/types';
+import type { GuideStep, PackStep, Submission } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
 const ATTEMPT_SLOTS = Array.from({ length: MAX_ATTEMPTS }, (_, slot) => slot);
@@ -147,6 +148,19 @@ export default function PackDetail() {
             />
           ))}
 
+          {pack.guide && pack.guide.length > 0 ? (
+            <>
+              <SectionTitle
+                icon={<ListOrdered size={18} color="#2f6bb0" />}
+                title="In-water pop-up guide"
+                subtitle="The full movement, broken into steps you can review on the beach."
+              />
+              {pack.guide.map((g, i) => (
+                <GuideRow key={g.image} step={g} index={i + 1} />
+              ))}
+            </>
+          ) : null}
+
           <SubmissionSection
             attemptsLeft={attemptsLeft}
             attemptsUsed={attemptsUsed}
@@ -249,6 +263,25 @@ function StepRow({
             ) : null}
           </>
         ) : null}
+      </View>
+    </View>
+  );
+}
+
+function GuideRow({ step, index }: { step: GuideStep; index: number }) {
+  return (
+    <View className="bg-surface border-border mt-3 flex-row overflow-hidden rounded-2xl border">
+      <Image
+        source={packImage(step.image)}
+        style={{ width: 104, height: 104 }}
+        resizeMode="cover"
+      />
+      <View className="flex-1 p-3">
+        <View className="bg-foam self-start rounded-full px-2 py-0.5">
+          <Text className="text-ocean-deep text-xs font-bold">{index}</Text>
+        </View>
+        <Text className="text-ink mt-1 text-sm font-bold">{step.title}</Text>
+        <Text className="text-slate-soft mt-1 text-xs leading-4">{step.description}</Text>
       </View>
     </View>
   );
