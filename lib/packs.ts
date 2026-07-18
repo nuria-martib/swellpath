@@ -128,7 +128,7 @@ export const PACKS: Pack[] = [
         kind: 'analyse',
         title: 'Analyse a bottom turn in the water',
         duration: '10 min',
-        image: 'wave',
+        image: 'bottomturn-hero',
         summary:
           'Before drilling anything, build the model. Watch the in-water reference at full speed, then slow it down and study the frames below. You are not learning to turn — you are hunting where you leak speed: a turn started too early, a rail buried too shallow, or a body that stands up instead of driving through the arc.',
         cues: [
