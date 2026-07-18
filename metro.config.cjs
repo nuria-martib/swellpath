@@ -76,7 +76,10 @@ const defaultResolveRequest = config.resolver.resolveRequest;
 
 const shouldResolveEmpty = (moduleName, platform) =>
   (moduleName === 'react-native-maps' && platform === 'web') ||
-  (moduleName === 'posthog-js' && platform !== 'web');
+  (moduleName === 'posthog-js' && platform !== 'web') ||
+  // Optional OpenTelemetry peer of @biltme/backend, loaded via a caught dynamic
+  // import. It is never installed here, so stub it out to unblock bundling.
+  moduleName === '@opentelemetry/api';
 
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (shouldResolveEmpty(moduleName, platform)) {
