@@ -20,7 +20,7 @@ export interface SurferProfile {
   recommendedPackId: string;
 }
 
-export type StepKind = 'surfskate' | 'water';
+export type StepKind = 'analyse' | 'surfskate' | 'water';
 
 export interface PackStep {
   id: string;

@@ -14,97 +14,93 @@ export const PACKS: Pack[] = [
     accentColor: 'ocean',
     heroImage: 'popup',
     overview:
-      'A fast, clean pop up is the difference between making the drop and eating it. Groove the movement pattern on land before chasing consistency in the water.',
-    prerequisites: ['Comfortable paddling', 'Can lie centred on the board'],
-    landSectionTitle: 'Train it on land',
-    landSectionSubtitle: 'Groove the movement pattern on dry land first.',
+      'You can already stand up — now make the pop up flawless. A fast, single-motion pop up buys you the split second that decides whether you make the drop or get pitched. Study the model, then drill the pattern on land until it fires without thought.',
+    prerequisites: ['Comfortable paddling', 'Can already stand up on a wave'],
+    landSectionTitle: 'Practice on solid ground',
+    landSectionSubtitle: 'Drill the pattern on dry land, every session, until it is perfect.',
+    guideSectionTitle: 'The pop up, frame by frame',
+    guideSectionSubtitle:
+      'John John Florence at full speed — study each position, then mirror it on land.',
     steps: [
       {
-        id: 'popup-ss-1',
-        kind: 'surfskate',
-        title: 'Floor rep: chest-to-feet',
+        id: 'popup-analyse-1',
+        kind: 'analyse',
+        title: 'Analyse a world-class pop up',
         duration: '10 min',
-        image: 'popup',
+        image: 'wave',
         summary:
-          'On a towel, drill the explosive push from prone to a stable stance. One motion, no knees.',
+          'Before you change anything, build the mental model. Watch the in-water reference at full speed, then slow down and study the eight frames below. You are not learning to stand — you are hunting the small inefficiencies that cost you speed and balance on the drop.',
         cues: [
-          'Hands under ribs, not by your shoulders',
-          'Drive the back foot in first, front foot follows',
-          'Land low with knees bent, eyes up the line',
+          'Notice how the hands set under the ribs, not out by the shoulders',
+          'Watch the back foot land first, front foot slide in on the same beat',
+          'Track the eyes — they are already down the line before the feet land',
         ],
-        videoId: '', // paste YouTube id here
+        videoId: 'XYZ46bGfZ08', // in-water pop-up reference
       },
       {
-        id: 'popup-ss-2',
+        id: 'popup-land-1',
         kind: 'surfskate',
-        title: 'Land drill: stance check',
+        title: 'Practice on solid ground',
         duration: '15 min',
         image: 'popup',
         summary:
-          'Rehearse your pop-up landing on solid ground. Freeze the finish position so the board feels like an extension of your stance.',
-        cues: ['Feet under your shoulders', 'Weight 60% front foot', 'Shoulders stacked over hips'],
-        videoId: '9rz-ucDwjVU', // out-of-water pop-up practice
-      },
-      {
-        id: 'popup-water-1',
-        kind: 'water',
-        title: 'In the water: catch & stand',
-        duration: 'Session',
-        image: 'wave',
-        summary:
-          'Take small, already-broken waves and commit to a single-motion pop up every time. Quality over quantity.',
+          'Groove the exact pattern you just analysed on a firm, flat surface. No knees, no scramble — one explosive press straight to your riding stance. Repeat it every session until it fires identically every time, so the water just becomes execution.',
         cues: [
-          'Paddle two strokes past the point you think you need',
-          'Pop the instant you feel the glide',
-          'Chin up — look where you want to go',
+          'Hands flat under your ribs, elbows in',
+          'Explode from prone to stance in a single motion — never via the knees',
+          'Freeze the landing: feet shoulder-width, weight ~60% front, eyes up the line',
         ],
-        videoId: 'XYZ46bGfZ08', // visualize the pop up in the water
+        videoId: '9rz-ucDwjVU', // land practice reference
       },
     ],
     guide: [
       {
         image: 'popup-step-1',
-        title: 'Paddle position',
+        title: 'Place feet + hold board',
         description:
-          'Lie centred on the board, chest up, toes near the tail. Paddle strong and level.',
+          'Hands set flat on the rails under the ribs, feet already loading the tail. The base you press from.',
       },
       {
         image: 'popup-step-2',
-        title: 'Feel the glide',
-        description: 'As the wave picks you up you feel weightless. This is the moment to commit.',
+        title: 'Transfer load + release',
+        description:
+          'Weight shifts off the chest and into the hands as the board releases down the face. Commit here.',
       },
       {
         image: 'popup-step-3',
-        title: 'Hands under ribs',
+        title: 'Commit + set hands',
         description:
-          'Plant your hands flat on the rails under your ribcage, not up by your shoulders.',
+          'Hands locked under the ribcage, arms driving. No hesitation — the pop starts the instant you feel glide.',
       },
       {
         image: 'popup-step-4',
-        title: 'Press up',
+        title: 'Balanced press',
         description:
-          'Push your chest and hips up in one explosive press, keeping your eyes up the line.',
+          'An even, explosive press through both hands, chest and hips rising together, board staying flat.',
       },
       {
         image: 'popup-step-5',
-        title: 'Back foot in',
-        description: 'Drive the back foot in first, landing across the stringer over the tail pad.',
+        title: 'Create hip clearance',
+        description:
+          'Hips lift high off the deck to open space for the feet. Low hips are what forces the knee drag.',
       },
       {
         image: 'popup-step-6',
-        title: 'Front foot follows',
-        description: 'Slide the front foot between your hands, over the bolts, in the same motion.',
+        title: 'Draw knees under',
+        description:
+          'Back foot drives in first across the stringer, front foot slides in beneath the chest on the same beat.',
       },
       {
         image: 'popup-step-7',
-        title: 'Land low',
+        title: 'Compress + set rail',
         description:
-          'Land in a low, athletic stance with knees bent and weight centred over the board.',
+          'Land low and compressed, weight centred, beginning to engage the rail for the first bottom turn.',
       },
       {
         image: 'popup-step-8',
-        title: 'Eyes up, ride',
-        description: 'Stand tall, look where you want to go, and set your line down the face.',
+        title: 'Stabilise + drive line',
+        description:
+          'Stand tall, eyes already down the line, driving the board into a clean, controlled trim.',
       },
     ],
   },

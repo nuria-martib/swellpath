@@ -8,6 +8,7 @@ import {
   ChevronLeft,
   ChevronUp,
   Circle,
+  Eye,
   ListOrdered,
   Play,
   Star,
@@ -55,6 +56,7 @@ export default function PackDetail() {
   const attemptsUsed = packSubmissions.length;
   const attemptsLeft = MAX_ATTEMPTS - attemptsUsed;
 
+  const analyseSteps = pack.steps.filter((s) => s.kind === 'analyse');
   const surfskateSteps = pack.steps.filter((s) => s.kind === 'surfskate');
   const waterSteps = pack.steps.filter((s) => s.kind === 'water');
   const allStepsDone = pack.steps.every((s) => completedSteps.includes(s.id));
@@ -118,48 +120,77 @@ export default function PackDetail() {
             </View>
           ) : null}
 
-          <SectionTitle
-            icon={<Waves size={18} color="#2f6bb0" />}
-            title={pack.landSectionTitle ?? 'Train it on a surfskate'}
-            subtitle={pack.landSectionSubtitle ?? 'Groove the movement pattern on land first.'}
-          />
-          {surfskateSteps.map((step, i) => (
-            <StepRow
-              key={step.id}
-              step={step}
-              index={i + 1}
-              done={completedSteps.includes(step.id)}
-              onToggle={() => toggleStep(step.id)}
-            />
-          ))}
-
-          <SectionTitle
-            icon={<VideoIcon size={18} color="#e07a5a" />}
-            title="Take it to the water"
-            subtitle="Apply what you drilled on real waves."
-          />
-          {waterSteps.map((step, i) => (
-            <StepRow
-              key={step.id}
-              step={step}
-              index={surfskateSteps.length + i + 1}
-              done={completedSteps.includes(step.id)}
-              onToggle={() => toggleStep(step.id)}
-            />
-          ))}
-
-          {pack.guide && pack.guide.length > 0 ? (
+          {analyseSteps.length > 0 ? (
             <>
               <SectionTitle
-                icon={<ListOrdered size={18} color="#2f6bb0" />}
-                title={pack.guideSectionTitle ?? 'In-water pop-up guide'}
-                subtitle={
-                  pack.guideSectionSubtitle ??
-                  'The full movement, broken into steps you can review on the beach.'
-                }
+                icon={<Eye size={18} color="#2f6bb0" />}
+                title="Analyse the movement"
+                subtitle="Build the model before you change a thing."
               />
-              {pack.guide.map((g, i) => (
-                <GuideRow key={g.image} step={g} index={i + 1} />
+              {analyseSteps.map((step, i) => (
+                <StepRow
+                  key={step.id}
+                  step={step}
+                  index={i + 1}
+                  done={completedSteps.includes(step.id)}
+                  onToggle={() => toggleStep(step.id)}
+                />
+              ))}
+
+              {pack.guide && pack.guide.length > 0 ? (
+                <>
+                  <View className="mt-5 flex-row items-center gap-2">
+                    <ListOrdered size={16} color="#2f6bb0" />
+                    <Text className="text-ink text-base font-bold">
+                      {pack.guideSectionTitle ?? 'Frame by frame'}
+                    </Text>
+                  </View>
+                  <Text className="text-slate-soft mt-1 text-sm">
+                    {pack.guideSectionSubtitle ??
+                      'The full movement, broken into steps you can review on the beach.'}
+                  </Text>
+                  {pack.guide.map((g, i) => (
+                    <GuideRow key={g.image} step={g} index={i + 1} />
+                  ))}
+                </>
+              ) : null}
+            </>
+          ) : null}
+
+          {surfskateSteps.length > 0 ? (
+            <>
+              <SectionTitle
+                icon={<Waves size={18} color="#2f6bb0" />}
+                title={pack.landSectionTitle ?? 'Train it on a surfskate'}
+                subtitle={pack.landSectionSubtitle ?? 'Groove the movement pattern on land first.'}
+              />
+              {surfskateSteps.map((step, i) => (
+                <StepRow
+                  key={step.id}
+                  step={step}
+                  index={analyseSteps.length + i + 1}
+                  done={completedSteps.includes(step.id)}
+                  onToggle={() => toggleStep(step.id)}
+                />
+              ))}
+            </>
+          ) : null}
+
+          {waterSteps.length > 0 ? (
+            <>
+              <SectionTitle
+                icon={<VideoIcon size={18} color="#e07a5a" />}
+                title="Take it to the water"
+                subtitle="Apply what you drilled on real waves."
+              />
+              {waterSteps.map((step, i) => (
+                <StepRow
+                  key={step.id}
+                  step={step}
+                  index={analyseSteps.length + surfskateSteps.length + i + 1}
+                  done={completedSteps.includes(step.id)}
+                  onToggle={() => toggleStep(step.id)}
+                />
               ))}
             </>
           ) : null}
