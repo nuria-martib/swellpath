@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button, Text } from 'heroui-native';
@@ -5,15 +6,23 @@ import { format, parseISO } from 'date-fns';
 import { Check, Waves, X } from 'lucide-react-native';
 
 import { getPack } from '@/lib/packs';
+import { useAuthStore } from '@/lib/auth';
 import { useSurfStore } from '@/lib/store';
 
 export default function Profile() {
   const router = useRouter();
   const profile = useSurfStore((s) => s.profile);
   const resetProfile = useSurfStore((s) => s.resetProfile);
+  const signOut = useAuthStore((s) => s.signOut);
+  const session = useAuthStore((s) => s.session);
+  const email = useAuthStore((s) => s.user?.email ?? null);
+
+  useEffect(() => {
+    if (!session) router.replace('/auth');
+    else if (!profile) router.replace('/onboarding');
+  }, [session, profile, router]);
 
   if (!profile) {
-    router.replace('/onboarding');
     return null;
   }
 
@@ -38,8 +47,13 @@ export default function Profile() {
   ];
 
   const retake = () => {
-    resetProfile();
+    void resetProfile();
     router.replace('/onboarding');
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.replace('/auth');
   };
 
   return (
@@ -104,6 +118,15 @@ export default function Profile() {
         <Text className="text-slate-soft text-center text-xs">
           Retaking resets your profile, but keeps your logged sessions and spots.
         </Text>
+
+        <View className="border-border mt-2 border-t pt-4">
+          {email ? (
+            <Text className="text-slate-soft mb-3 text-center text-xs">Signed in as {email}</Text>
+          ) : null}
+          <Button variant="ghost" onPress={handleSignOut}>
+            <Button.Label className="text-coral">Sign out</Button.Label>
+          </Button>
+        </View>
       </ScrollView>
     </View>
   );

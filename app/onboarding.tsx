@@ -63,7 +63,7 @@ export default function Onboarding() {
   });
 
   const finish = () => {
-    completeOnboarding(buildAnswers());
+    void completeOnboarding(buildAnswers());
     router.replace('/(tabs)');
   };
 

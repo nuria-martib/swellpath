@@ -25,6 +25,8 @@ import {
 import { initPostHog } from '@/lib/posthog';
 import { registerServiceWorker } from '@/lib/registerServiceWorker';
 import { reportErrorToParent } from '@/lib/reportPreviewError';
+import { useAuthStore } from '@/lib/auth';
+import { useSurfStore } from '@/lib/store';
 import { InstallPrompt } from '@/components/InstallPrompt';
 
 /**
@@ -128,6 +130,21 @@ export default function RootLayout() {
     registerServiceWorker();
   }, []);
 
+  // Bootstrap auth once, then load or clear cloud data as the user changes.
+  const initAuth = useAuthStore((s) => s.init);
+  const userId = useAuthStore((s) => s.user?.id ?? null);
+  const loadForUser = useSurfStore((s) => s.loadForUser);
+  const clearSurf = useSurfStore((s) => s.clear);
+
+  useEffect(() => {
+    void initAuth();
+  }, [initAuth]);
+
+  useEffect(() => {
+    if (userId) void loadForUser(userId);
+    else clearSurf();
+  }, [userId, loadForUser, clearSurf]);
+
   useEffect(() => {
     if (loaded || error) {
       void SplashScreen.hideAsync();
@@ -143,6 +160,7 @@ export default function RootLayout() {
       <HeroUINativeProvider>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />
+          <Stack.Screen name="auth" />
           <Stack.Screen name="onboarding" />
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="pack/[id]" />

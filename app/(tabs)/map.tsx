@@ -76,9 +76,9 @@ export default function MapScreen() {
     setBreakType('beach');
   };
 
-  const saveSpot = () => {
+  const saveSpot = async () => {
     if (!pendingCoord || name.trim().length === 0) return;
-    addSpot({
+    await addSpot({
       name: name.trim(),
       latitude: pendingCoord.latitude,
       longitude: pendingCoord.longitude,
@@ -150,7 +150,7 @@ export default function MapScreen() {
               size="sm"
               className="mt-4 self-start"
               onPress={() => {
-                removeSpot(selectedSpot.id);
+                void removeSpot(selectedSpot.id);
                 setSelectedSpot(null);
               }}
             >

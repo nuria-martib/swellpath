@@ -22,9 +22,9 @@ export default function LogSession() {
   const today = format(new Date(), 'yyyy-MM-dd');
   const canSave = spotName.trim().length > 0;
 
-  const save = () => {
+  const save = async () => {
     if (!canSave) return;
-    addSession({
+    await addSession({
       date: today,
       spotName: spotName.trim(),
       durationMinutes: Number(duration) || 0,

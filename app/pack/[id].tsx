@@ -64,7 +64,7 @@ export default function PackDetail() {
         quality: 1,
       });
       if (result.canceled || result.assets.length === 0) return;
-      const created = addSubmission(pack.id, result.assets[0].uri);
+      const created = await addSubmission(pack.id, result.assets[0].uri);
       if (created) {
         // Simulate coach reviewing then grading
         setTimeout(() => gradeSubmission(created.id), 2600);
