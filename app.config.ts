@@ -41,7 +41,18 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     extra: {
       appStoreAppId: process.env.BILT_APP_STORE_APP_ID,
     },
-    plugins: ['expo-router', 'expo-font', ...nativePlugins],
+    plugins: [
+      'expo-router',
+      'expo-font',
+      [
+        'expo-image-picker',
+        {
+          photosPermission:
+            'SwellPath needs access to your videos so you can submit clips for coach feedback.',
+        },
+      ],
+      ...nativePlugins,
+    ],
     experiments: {
       typedRoutes: true,
       reactCompiler: true,
