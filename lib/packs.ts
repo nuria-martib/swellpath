@@ -14,8 +14,10 @@ export const PACKS: Pack[] = [
     accentColor: 'ocean',
     heroImage: 'popup',
     overview:
-      'A fast, clean pop up is the difference between making the drop and eating it. Groove the movement pattern on land and a surfskate before chasing consistency in the water.',
+      'A fast, clean pop up is the difference between making the drop and eating it. Groove the movement pattern on land before chasing consistency in the water.',
     prerequisites: ['Comfortable paddling', 'Can lie centred on the board'],
+    landSectionTitle: 'Train it on land',
+    landSectionSubtitle: 'Groove the movement pattern on dry land first.',
     steps: [
       {
         id: 'popup-ss-1',
@@ -35,12 +37,12 @@ export const PACKS: Pack[] = [
       {
         id: 'popup-ss-2',
         kind: 'surfskate',
-        title: 'Surfskate stance check',
+        title: 'Land drill: stance check',
         duration: '15 min',
-        image: 'surfskate',
+        image: 'popup',
         summary:
-          'Find your natural stance width and weighting rolling slowly. The board should feel like an extension of your pop-up landing.',
-        cues: ['Feet over the bolts', 'Weight 60% front foot', 'Shoulders stacked over hips'],
+          'Rehearse your pop-up landing on solid ground. Freeze the finish position so the board feels like an extension of your stance.',
+        cues: ['Feet under your shoulders', 'Weight 60% front foot', 'Shoulders stacked over hips'],
         videoId: '9rz-ucDwjVU', // out-of-water pop-up practice
       },
       {

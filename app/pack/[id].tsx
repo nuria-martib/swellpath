@@ -120,8 +120,8 @@ export default function PackDetail() {
 
           <SectionTitle
             icon={<Waves size={18} color="#2f6bb0" />}
-            title="Train it on a surfskate"
-            subtitle="Groove the movement pattern on land first."
+            title={pack.landSectionTitle ?? 'Train it on a surfskate'}
+            subtitle={pack.landSectionSubtitle ?? 'Groove the movement pattern on land first.'}
           />
           {surfskateSteps.map((step, i) => (
             <StepRow
@@ -152,8 +152,11 @@ export default function PackDetail() {
             <>
               <SectionTitle
                 icon={<ListOrdered size={18} color="#2f6bb0" />}
-                title="In-water pop-up guide"
-                subtitle="The full movement, broken into steps you can review on the beach."
+                title={pack.guideSectionTitle ?? 'In-water pop-up guide'}
+                subtitle={
+                  pack.guideSectionSubtitle ??
+                  'The full movement, broken into steps you can review on the beach.'
+                }
               />
               {pack.guide.map((g, i) => (
                 <GuideRow key={g.image} step={g} index={i + 1} />

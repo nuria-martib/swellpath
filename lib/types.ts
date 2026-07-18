@@ -58,6 +58,12 @@ export interface Pack {
   steps: PackStep[];
   /** optional sequential photo guide (e.g. the 8-step pop-up breakdown) */
   guide?: GuideStep[];
+  /** heading for the dry-land training section (defaults to the surfskate wording) */
+  landSectionTitle?: string;
+  landSectionSubtitle?: string;
+  /** heading for the in-water photo guide section (defaults to the pop-up wording) */
+  guideSectionTitle?: string;
+  guideSectionSubtitle?: string;
 }
 
 export type SubmissionStatus = 'reviewing' | 'graded';
