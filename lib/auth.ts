@@ -11,7 +11,6 @@ interface AuthState {
 
   init: () => Promise<void>;
   signUp: (email: string, password: string) => Promise<{ error?: string }>;
-  verifySignup: (email: string, token: string) => Promise<{ error?: string }>;
   signIn: (email: string, password: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
 }
@@ -31,19 +30,20 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   signUp: async (email, password) => {
-    const { error } = await bilt.auth.signUp({ email: email.trim(), password });
+    const { data, error } = await bilt.auth.signUp({ email: email.trim(), password });
     if (error) return { error: error.message };
-    return {};
-  },
-
-  verifySignup: async (email, token) => {
-    const { data, error } = await bilt.auth.verifyOtp({
+    // With email confirmation disabled, signUp returns an active session.
+    if (data.session) {
+      set({ session: data.session, user: data.session.user });
+      return {};
+    }
+    // Fall back to signing in directly if no session came back.
+    const { data: signInData, error: signInError } = await bilt.auth.signInWithPassword({
       email: email.trim(),
-      token: token.trim(),
-      type: 'signup',
+      password,
     });
-    if (error) return { error: error.message };
-    set({ session: data.session, user: data.session?.user ?? null });
+    if (signInError) return { error: signInError.message };
+    set({ session: signInData.session, user: signInData.session?.user ?? null });
     return {};
   },
 
