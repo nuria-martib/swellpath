@@ -7,10 +7,8 @@ import { ChevronLeft, Waves } from 'lucide-react-native';
 import { OptionCard } from '@/components/OptionCard';
 import { getPack } from '@/lib/packs';
 import { useSurfStore } from '@/lib/store';
-import type { AssessmentAnswers } from '@/lib/assessment';
+import type { AssessmentAnswers, SkillRating } from '@/lib/assessment';
 import { assessSurfer } from '@/lib/assessment';
-
-type YesNo = 'yes' | 'no' | null;
 
 export default function Onboarding() {
   const router = useRouter();
@@ -20,13 +18,14 @@ export default function Onboarding() {
   const [name, setName] = useState('');
   const [homeBreak, setHomeBreak] = useState('');
   const [years, setYears] = useState<number | null>(null);
+  const [frequency, setFrequency] = useState<number | null>(null);
   const [popUp, setPopUp] = useState<number | null>(null);
-  const [bottomTurn, setBottomTurn] = useState<YesNo>(null);
-  const [cutback, setCutback] = useState<YesNo>(null);
-  const [topTurn, setTopTurn] = useState<YesNo>(null);
-  const [air, setAir] = useState<YesNo>(null);
+  const [bottomTurn, setBottomTurn] = useState<SkillRating | null>(null);
+  const [cutback, setCutback] = useState<SkillRating | null>(null);
+  const [topTurn, setTopTurn] = useState<SkillRating | null>(null);
+  const [air, setAir] = useState<SkillRating | null>(null);
 
-  const totalSteps = 7;
+  const totalSteps = 8;
 
   const canContinue = (): boolean => {
     switch (step) {
@@ -35,14 +34,16 @@ export default function Onboarding() {
       case 1:
         return years !== null;
       case 2:
-        return popUp !== null;
+        return frequency !== null;
       case 3:
-        return bottomTurn !== null;
+        return popUp !== null;
       case 4:
-        return cutback !== null;
+        return bottomTurn !== null;
       case 5:
-        return topTurn !== null;
+        return cutback !== null;
       case 6:
+        return topTurn !== null;
+      case 7:
         return air !== null;
       default:
         return false;
@@ -51,12 +52,13 @@ export default function Onboarding() {
 
   const buildAnswers = (): AssessmentAnswers => ({
     name: name.trim(),
-    yearsSurfing: years ?? 0,
-    popUpConfidence: popUp ?? 1,
-    canBottomTurn: bottomTurn === 'yes',
-    canCutback: cutback === 'yes',
-    canTopTurn: topTurn === 'yes',
-    hasLandedAir: air === 'yes',
+    yearsSurfing: years ?? 1,
+    surfFrequency: frequency ?? 1,
+    popUpConfidence: popUp ?? 3,
+    bottomTurn: bottomTurn ?? 0,
+    cutback: cutback ?? 0,
+    topTurn: topTurn ?? 0,
+    air: air ?? 0,
     homeBreak: homeBreak.trim() || undefined,
   });
 
@@ -125,10 +127,10 @@ export default function Onboarding() {
             <StepHeader title="How long have you been surfing?" />
             <View className="gap-2.5">
               {[
-                { v: 0, label: 'Just started', desc: 'Less than a year' },
                 { v: 1, label: '1–2 years', desc: 'Getting the basics down' },
                 { v: 3, label: '3–5 years', desc: 'Comfortable on most waves' },
-                { v: 6, label: '5+ years', desc: 'Experienced surfer' },
+                { v: 6, label: '5–10 years', desc: 'Experienced surfer' },
+                { v: 11, label: '10+ years', desc: 'Been at it a long time' },
               ].map((o) => (
                 <OptionCard
                   key={o.v}
@@ -145,12 +147,35 @@ export default function Onboarding() {
         {step === 2 ? (
           <>
             <StepHeader
+              title="How often do you actually surf?"
+              subtitle="Consistency matters more than years — regular time in the water builds skill fastest."
+            />
+            <View className="gap-2.5">
+              {[
+                { v: 1, label: 'A few times a year', desc: 'Trips or the odd session' },
+                { v: 2, label: 'A few times a month', desc: 'Whenever conditions allow' },
+                { v: 3, label: 'Most weeks', desc: 'Surfing is part of my routine' },
+              ].map((o) => (
+                <OptionCard
+                  key={o.v}
+                  label={o.label}
+                  description={o.desc}
+                  selected={frequency === o.v}
+                  onPress={() => setFrequency(o.v)}
+                />
+              ))}
+            </View>
+          </>
+        ) : null}
+
+        {step === 3 ? (
+          <>
+            <StepHeader
               title="How's your pop-up?"
               subtitle="Be honest — this shapes where you start."
             />
             <View className="gap-2.5">
               {[
-                { v: 1, label: 'Still figuring it out', desc: 'Often on my knees or slow' },
                 { v: 3, label: 'Inconsistent', desc: 'Works on easy waves' },
                 { v: 4, label: 'Solid', desc: 'Clean and quick most times' },
                 { v: 5, label: 'Second nature', desc: 'Never think about it' },
@@ -167,8 +192,8 @@ export default function Onboarding() {
           </>
         ) : null}
 
-        {step === 3 ? (
-          <YesNoStep
+        {step === 4 ? (
+          <SkillStep
             title="Can you do a bottom turn?"
             subtitle="Compressing at the base and driving back up the face."
             value={bottomTurn}
@@ -176,8 +201,8 @@ export default function Onboarding() {
           />
         ) : null}
 
-        {step === 4 ? (
-          <YesNoStep
+        {step === 5 ? (
+          <SkillStep
             title="Have you landed a cutback?"
             subtitle="Arcing back to the pocket when you outrun the wave."
             value={cutback}
@@ -185,8 +210,8 @@ export default function Onboarding() {
           />
         ) : null}
 
-        {step === 5 ? (
-          <YesNoStep
+        {step === 6 ? (
+          <SkillStep
             title="Can you do a top turn?"
             subtitle="Redirecting off the top of the wave with control."
             value={topTurn}
@@ -194,10 +219,10 @@ export default function Onboarding() {
           />
         ) : null}
 
-        {step === 6 ? (
+        {step === 7 ? (
           <>
-            <YesNoStep
-              title="Have you ever landed an air?"
+            <SkillStep
+              title="Have you landed an air?"
               subtitle="Fully airborne and riding away clean."
               value={air}
               onChange={setAir}
@@ -236,7 +261,7 @@ function StepHeader({ title, subtitle }: { title: string; subtitle?: string }) {
   );
 }
 
-function YesNoStep({
+function SkillStep({
   title,
   subtitle,
   value,
@@ -244,8 +269,8 @@ function YesNoStep({
 }: {
   title: string;
   subtitle?: string;
-  value: YesNo;
-  onChange: (v: YesNo) => void;
+  value: SkillRating | null;
+  onChange: (v: SkillRating) => void;
 }) {
   return (
     <>
@@ -253,10 +278,17 @@ function YesNoStep({
       <View className="gap-2.5">
         <OptionCard
           label="Yes, consistently"
-          selected={value === 'yes'}
-          onPress={() => onChange('yes')}
+          description="I can land it reliably"
+          selected={value === 2}
+          onPress={() => onChange(2)}
         />
-        <OptionCard label="Not yet" selected={value === 'no'} onPress={() => onChange('no')} />
+        <OptionCard
+          label="Kind of, but inconsistently"
+          description="It happens on good days"
+          selected={value === 1}
+          onPress={() => onChange(1)}
+        />
+        <OptionCard label="Not yet" selected={value === 0} onPress={() => onChange(0)} />
       </View>
     </>
   );

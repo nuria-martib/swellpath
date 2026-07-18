@@ -1,14 +1,19 @@
 export type SkillLevel = 'beginner' | 'improver' | 'intermediate' | 'advanced';
 
+/** self-rating for a manoeuvre: 0 not yet, 1 inconsistently, 2 yes consistently */
+export type SkillRating = 0 | 1 | 2;
+
 export interface SurferProfile {
   name: string;
   yearsSurfing: number;
+  /** how often they surf: 1 few times/yr, 2 monthly, 3 weekly */
+  surfFrequency: number;
   /** self-reported confidence in the pop up, 1-5 */
   popUpConfidence: number;
-  canBottomTurn: boolean;
-  canCutback: boolean;
-  canTopTurn: boolean;
-  hasLandedAir: boolean;
+  bottomTurn: SkillRating;
+  cutback: SkillRating;
+  topTurn: SkillRating;
+  air: SkillRating;
   homeBreak?: string;
   createdAt: string;
   level: SkillLevel;

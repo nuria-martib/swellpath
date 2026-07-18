@@ -21,18 +21,19 @@ export default function Profile() {
 
   const facts: { label: string; value: string; done?: boolean }[] = [
     { label: 'Years surfing', value: profile.yearsSurfing >= 6 ? '5+' : `${profile.yearsSurfing}` },
+    { label: 'Surf frequency', value: freqLabel(profile.surfFrequency) },
     { label: 'Pop-up confidence', value: `${profile.popUpConfidence}/5` },
     {
       label: 'Bottom turn',
-      value: profile.canBottomTurn ? 'Yes' : 'Not yet',
-      done: profile.canBottomTurn,
+      value: ratingLabel(profile.bottomTurn),
+      done: profile.bottomTurn >= 2,
     },
-    { label: 'Cutback', value: profile.canCutback ? 'Yes' : 'Not yet', done: profile.canCutback },
-    { label: 'Top turn', value: profile.canTopTurn ? 'Yes' : 'Not yet', done: profile.canTopTurn },
+    { label: 'Cutback', value: ratingLabel(profile.cutback), done: profile.cutback >= 2 },
+    { label: 'Top turn', value: ratingLabel(profile.topTurn), done: profile.topTurn >= 2 },
     {
       label: 'Landed an air',
-      value: profile.hasLandedAir ? 'Yes' : 'Not yet',
-      done: profile.hasLandedAir,
+      value: ratingLabel(profile.air),
+      done: profile.air >= 2,
     },
   ];
 
@@ -110,4 +111,12 @@ export default function Profile() {
 
 function cap(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function ratingLabel(r: number): string {
+  return r >= 2 ? 'Consistently' : r === 1 ? 'Inconsistently' : 'Not yet';
+}
+
+function freqLabel(f: number): string {
+  return f >= 3 ? 'Weekly' : f === 2 ? 'Monthly' : 'A few times a year';
 }

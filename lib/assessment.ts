@@ -1,13 +1,19 @@
-import type { CoachFeedback, SkillLevel } from './types';
+import type { CoachFeedback, SkillLevel, SkillRating } from './types';
+
+// Skill self-rating: 0 = not yet, 1 = inconsistently, 2 = yes consistently
+export type { SkillRating };
 
 export interface AssessmentAnswers {
   name: string;
   yearsSurfing: number;
+  // How often they actually surf: 1 = a few times a year,
+  // 2 = monthly, 3 = weekly / most weeks
+  surfFrequency: number;
   popUpConfidence: number; // 1-5
-  canBottomTurn: boolean;
-  canCutback: boolean;
-  canTopTurn: boolean;
-  hasLandedAir: boolean;
+  bottomTurn: SkillRating;
+  cutback: SkillRating;
+  topTurn: SkillRating;
+  air: SkillRating;
   homeBreak?: string;
 }
 
@@ -17,40 +23,48 @@ export interface AssessmentResult {
 }
 
 /**
- * Recommends the first maneuver pack the surfer has NOT yet mastered,
+ * Recommends the first maneuver pack the surfer has NOT yet locked in,
  * and derives an overall skill level from their answers.
+ *
+ * Skill is driven mostly by demonstrated ability and consistency of practice,
+ * not raw years — someone surfing weekly for a year usually out-skills someone
+ * who surfs one week a year for five years. We combine years with frequency
+ * into "effective experience" so time counts only when it's backed by mileage.
  */
 export function assessSurfer(a: AssessmentAnswers): AssessmentResult {
+  // Effective experience: years scaled by how often they surf.
+  // freq 1 (few times/yr) ~= 0.3x, freq 2 (monthly) ~= 0.7x, freq 3 (weekly) = 1x.
+  const freqWeight = a.surfFrequency >= 3 ? 1 : a.surfFrequency === 2 ? 0.7 : 0.3;
+  const effectiveExperience = a.yearsSurfing * freqWeight;
+
   let recommendedPackId = 'pop-up';
 
-  if (a.popUpConfidence < 3 || a.yearsSurfing < 1) {
+  if (a.popUpConfidence < 3) {
     recommendedPackId = 'pop-up';
-  } else if (!a.canBottomTurn) {
+  } else if (a.bottomTurn < 2) {
     recommendedPackId = 'bottom-turn';
-  } else if (!a.canCutback) {
+  } else if (a.cutback < 2) {
     recommendedPackId = 'cutback';
-  } else if (!a.canTopTurn) {
+  } else if (a.topTurn < 2) {
     recommendedPackId = 'top-turn';
-  } else if (!a.hasLandedAir) {
-    recommendedPackId = 'air';
   } else {
     recommendedPackId = 'air';
   }
 
-  // Score-based level
+  // Score-based level. Demonstrated ability weighs more than time.
   let score = 0;
-  if (a.yearsSurfing >= 1) score += 1;
-  if (a.yearsSurfing >= 3) score += 1;
+  if (effectiveExperience >= 1) score += 1;
+  if (effectiveExperience >= 3) score += 1;
   if (a.popUpConfidence >= 4) score += 1;
-  if (a.canBottomTurn) score += 1;
-  if (a.canCutback) score += 1;
-  if (a.canTopTurn) score += 1;
-  if (a.hasLandedAir) score += 2;
+  score += a.bottomTurn; // 0-2
+  score += a.cutback; // 0-2
+  score += a.topTurn; // 0-2
+  score += a.air * 1.5; // 0-3, airs weigh most
 
   let level: SkillLevel = 'beginner';
-  if (score >= 7) level = 'advanced';
-  else if (score >= 5) level = 'intermediate';
-  else if (score >= 2) level = 'improver';
+  if (score >= 9) level = 'advanced';
+  else if (score >= 6) level = 'intermediate';
+  else if (score >= 3) level = 'improver';
 
   return { level, recommendedPackId };
 }
