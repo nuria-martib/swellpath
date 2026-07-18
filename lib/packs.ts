@@ -27,7 +27,7 @@ export const PACKS: Pack[] = [
         kind: 'analyse',
         title: 'Analyse a world-class pop up',
         duration: '10 min',
-        image: 'wave',
+        image: 'popup-water',
         summary:
           'Before you change anything, build the mental model. Watch the in-water reference at full speed, then slow down and study the eight frames below. You are not learning to stand — you are hunting the small inefficiencies that cost you speed and balance on the drop.',
         cues: [
@@ -42,7 +42,7 @@ export const PACKS: Pack[] = [
         kind: 'surfskate',
         title: 'Practice on solid ground',
         duration: '15 min',
-        image: 'popup',
+        image: 'popup-land',
         summary:
           'Groove the exact pattern you just analysed on a firm, flat surface. No knees, no scramble — one explosive press straight to your riding stance. Repeat it every session until it fires identically every time, so the water just becomes execution.',
         cues: [

@@ -10,6 +10,9 @@ export const PACK_IMAGES: Record<string, ImageSourcePropType> = {
   cutback: require('@/assets/packs/cutback.png'),
   topturn: require('@/assets/packs/topturn.png'),
   air: require('@/assets/packs/air.png'),
+  // Pop-Up Pack step photos.
+  'popup-water': require('@/assets/packs/popup-water.jpg'),
+  'popup-land': require('@/assets/packs/popup-land.png'),
   // 8-step in-water pop-up study frames (John John Florence).
   'popup-step-1': require('@/assets/packs/popup-steps/1.jpg'),
   'popup-step-2': require('@/assets/packs/popup-steps/2.jpg'),
