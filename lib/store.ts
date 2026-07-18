@@ -30,6 +30,7 @@ interface SurfState {
   submissionsForPack: (packId: string) => Submission[];
 
   addSession: (session: Omit<SurfSession, 'id'>) => Promise<void>;
+  updateSession: (id: string, patch: Omit<SurfSession, 'id'>) => Promise<void>;
   removeSession: (id: string) => Promise<void>;
 
   addSpot: (spot: Omit<SurfSpot, 'id' | 'addedAt' | 'sessions'>) => Promise<void>;
@@ -59,6 +60,7 @@ interface ProfileRow {
 
 interface SessionRow {
   id: string;
+  title: string;
   date: string;
   spot_name: string;
   duration_minutes: number;
@@ -153,6 +155,7 @@ export const useSurfStore = create<SurfState>()((set, get) => ({
       showCommunity: profileRow?.show_community ?? true,
       sessions: sessionRows.map((r) => ({
         id: r.id,
+        title: r.title,
         date: r.date,
         spotName: r.spot_name,
         durationMinutes: r.duration_minutes,
@@ -320,6 +323,7 @@ export const useSurfStore = create<SurfState>()((set, get) => ({
       .from('surf_sessions')
       .insert({
         user_id: userId,
+        title: session.title,
         date: session.date,
         spot_name: session.spotName,
         duration_minutes: session.durationMinutes,
@@ -331,6 +335,24 @@ export const useSurfStore = create<SurfState>()((set, get) => ({
       .single();
     if (error || !data) return;
     set({ sessions: [{ ...session, id: data.id }, ...get().sessions] });
+  },
+
+  updateSession: async (id, patch) => {
+    set({
+      sessions: get().sessions.map((s) => (s.id === id ? { ...patch, id } : s)),
+    });
+    await bilt
+      .from('surf_sessions')
+      .update({
+        title: patch.title,
+        date: patch.date,
+        spot_name: patch.spotName,
+        duration_minutes: patch.durationMinutes,
+        wave_count: patch.waveCount,
+        rating: patch.rating,
+        notes: patch.notes ?? null,
+      })
+      .eq('id', id);
   },
 
   removeSession: async (id) => {

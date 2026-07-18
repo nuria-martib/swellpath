@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button, Input, Label, Text, TextField } from 'heroui-native';
 import { format } from 'date-fns';
 import { Star } from 'lucide-react-native';
@@ -10,28 +10,43 @@ import { cn } from '@/lib/utils';
 
 export default function LogSession() {
   const router = useRouter();
+  const params = useLocalSearchParams<{ id?: string }>();
   const addSession = useSurfStore((s) => s.addSession);
+  const updateSession = useSurfStore((s) => s.updateSession);
   const spots = useSurfStore((s) => s.spots);
+  const sessions = useSurfStore((s) => s.sessions);
 
-  const [spotName, setSpotName] = useState('');
-  const [duration, setDuration] = useState('90');
-  const [waves, setWaves] = useState('10');
-  const [rating, setRating] = useState(4);
-  const [notes, setNotes] = useState('');
+  const editing = useMemo(
+    () => (params.id ? sessions.find((s) => s.id === params.id) : undefined),
+    [params.id, sessions],
+  );
 
-  const today = format(new Date(), 'yyyy-MM-dd');
-  const canSave = spotName.trim().length > 0;
+  const [title, setTitle] = useState(editing?.title ?? '');
+  const [spotName, setSpotName] = useState(editing?.spotName ?? '');
+  const [duration, setDuration] = useState(String(editing?.durationMinutes ?? 90));
+  const [waves, setWaves] = useState(String(editing?.waveCount ?? 10));
+  const [rating, setRating] = useState(editing?.rating ?? 4);
+  const [notes, setNotes] = useState(editing?.notes ?? '');
+
+  const date = editing?.date ?? format(new Date(), 'yyyy-MM-dd');
+  const canSave = title.trim().length > 0 && spotName.trim().length > 0;
 
   const save = async () => {
     if (!canSave) return;
-    await addSession({
-      date: today,
+    const payload = {
+      title: title.trim(),
+      date,
       spotName: spotName.trim(),
       durationMinutes: Number(duration) || 0,
       waveCount: Number(waves) || 0,
       rating,
       notes: notes.trim() || undefined,
-    });
+    };
+    if (editing) {
+      await updateSession(editing.id, payload);
+    } else {
+      await addSession(payload);
+    }
     router.back();
   };
 
@@ -45,11 +60,18 @@ export default function LogSession() {
         keyboardShouldPersistTaps="handled"
       >
         <View>
-          <Text className="text-ink text-2xl font-bold">Log a session</Text>
+          <Text className="text-ink text-2xl font-bold">
+            {editing ? 'Edit session' : 'Log a session'}
+          </Text>
           <Text className="text-slate-soft mt-0.5 text-base">
-            {format(new Date(), 'EEEE, d MMMM')}
+            {format(new Date(`${date}T00:00:00`), 'EEEE, d MMMM')}
           </Text>
         </View>
+
+        <TextField>
+          <Label>Title</Label>
+          <Input placeholder="Dawn patrol, glassy peaks…" value={title} onChangeText={setTitle} />
+        </TextField>
 
         <TextField>
           <Label>Spot</Label>
@@ -117,7 +139,7 @@ export default function LogSession() {
           <Button.Label>Cancel</Button.Label>
         </Button>
         <Button className="flex-1" isDisabled={!canSave} onPress={save}>
-          <Button.Label>Save session</Button.Label>
+          <Button.Label>{editing ? 'Save changes' : 'Save session'}</Button.Label>
         </Button>
       </View>
     </KeyboardAvoidingView>

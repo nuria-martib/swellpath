@@ -174,9 +174,16 @@ function SessionRow({ session }: { session: SurfSession }) {
       className="bg-surface border-border rounded-2xl border p-4"
     >
       <View className="flex-row items-center justify-between">
-        <Text className="text-ink text-base font-bold">{session.spotName}</Text>
-        <Text className="text-slate-soft text-xs">{format(parseISO(session.date), 'd MMM')}</Text>
+        <Text className="text-ink flex-1 text-base font-bold" numberOfLines={1}>
+          {session.title || session.spotName}
+        </Text>
+        <Text className="text-slate-soft ml-2 text-xs">
+          {format(parseISO(session.date), 'd MMM')}
+        </Text>
       </View>
+      {session.title ? (
+        <Text className="text-ocean-deep mt-0.5 text-sm font-medium">{session.spotName}</Text>
+      ) : null}
       <View className="mt-2 flex-row flex-wrap gap-x-4 gap-y-1">
         <Meta label={`${session.durationMinutes} min`} />
         <Meta label={`${session.waveCount} waves`} />
@@ -185,6 +192,11 @@ function SessionRow({ session }: { session: SurfSession }) {
       {session.notes ? <Text className="text-slate-soft mt-2 text-sm">{session.notes}</Text> : null}
       {confirm ? (
         <View className="mt-3 flex-row gap-2">
+          <Link href={{ pathname: '/log-session', params: { id: session.id } }} asChild>
+            <Button size="sm" onPress={() => setConfirm(false)}>
+              <Button.Label>Edit</Button.Label>
+            </Button>
+          </Link>
           <Button variant="danger" size="sm" onPress={() => removeSession(session.id)}>
             <Button.Label>Delete</Button.Label>
           </Button>

@@ -88,6 +88,7 @@ export interface Submission {
 
 export interface SurfSession {
   id: string;
+  title: string;
   date: string; // ISO date (yyyy-mm-dd)
   spotName: string;
   durationMinutes: number;
