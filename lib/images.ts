@@ -25,14 +25,14 @@ export const PACK_IMAGES: Record<string, ImageSourcePropType> = {
   'popup-step-6': require('@/assets/packs/popup-steps/6.jpg'),
   'popup-step-7': require('@/assets/packs/popup-steps/7.jpg'),
   'popup-step-8': require('@/assets/packs/popup-steps/8.jpg'),
-  // Bottom Turn Pack step photos — user will upload frames to
-  // assets/packs/bottomturn-steps/1.jpg..6.jpg, then uncomment below.
-  // 'bottomturn-step-1': require('@/assets/packs/bottomturn-steps/1.jpg'),
-  // 'bottomturn-step-2': require('@/assets/packs/bottomturn-steps/2.jpg'),
-  // 'bottomturn-step-3': require('@/assets/packs/bottomturn-steps/3.jpg'),
-  // 'bottomturn-step-4': require('@/assets/packs/bottomturn-steps/4.jpg'),
-  // 'bottomturn-step-5': require('@/assets/packs/bottomturn-steps/5.jpg'),
-  // 'bottomturn-step-6': require('@/assets/packs/bottomturn-steps/6.jpg'),
+  // 7-frame bottom-turn study frames (Bottom Turn Drive, regular foot).
+  'bottomturn-step-1': require('@/assets/packs/bottomturn-steps/1.jpg'),
+  'bottomturn-step-2': require('@/assets/packs/bottomturn-steps/2.jpg'),
+  'bottomturn-step-3': require('@/assets/packs/bottomturn-steps/3.jpg'),
+  'bottomturn-step-4': require('@/assets/packs/bottomturn-steps/4.jpg'),
+  'bottomturn-step-5': require('@/assets/packs/bottomturn-steps/5.jpg'),
+  'bottomturn-step-6': require('@/assets/packs/bottomturn-steps/6.jpg'),
+  'bottomturn-step-7': require('@/assets/packs/bottomturn-steps/7.jpg'),
 };
 
 export function packImage(key: string): ImageSourcePropType {

@@ -136,7 +136,7 @@ export const PACKS: Pack[] = [
           'See the inside rail buried and held through the whole arc',
           'Track the leading arm and eyes — they point up the face before the board follows',
         ],
-        videoId: 'rh-WwXFKTcw', // in-water bottom-turn reference
+        videoId: 'JHJCXi5ZcPY', // in-water bottom-turn reference
       },
       {
         id: 'bt-ss-1',
@@ -172,39 +172,45 @@ export const PACKS: Pack[] = [
     guide: [
       {
         image: 'bottomturn-step-1',
-        title: 'Set the line off the top',
+        title: 'Set line to trough',
         description:
-          'Coming out of the drop, aim for the base of the wave with speed and your eyes already scanning up the face.',
+          'Coming off the drop, aim straight for the trough at the base of the wave, carrying all your speed and keeping the board flat and driving.',
       },
       {
         image: 'bottomturn-step-2',
-        title: 'Compress at the base',
+        title: 'Compress on descent',
         description:
-          'Bend deep at the lowest point of the wave, loading your legs like a spring ready to release.',
+          'As you drop to the base, bend deep through the knees and hips — loading your legs like a spring, weight stacked over the board.',
       },
       {
         image: 'bottomturn-step-3',
-        title: 'Bury the inside rail',
+        title: 'Gaze + lead arm',
         description:
-          'Lean into the turn and dig the inside rail, letting it carry the arc rather than skidding flat.',
+          'Turn your head and reach your leading arm up toward the section you want to hit. The body follows where you look.',
       },
       {
         image: 'bottomturn-step-4',
-        title: 'Lead with eyes + arm',
+        title: 'Maximum rail load',
         description:
-          'Point your leading arm and eyes up toward the section you want to hit — the body follows the look.',
+          'At the bottom of the arc, bury the inside rail and stay low — this is the deepest point of compression, storing all the drive.',
       },
       {
         image: 'bottomturn-step-5',
-        title: 'Drive + project',
+        title: 'Hold rail through arc',
         description:
-          'Extend out of the compression to fire the stored energy up the face toward the lip.',
+          'Keep the rail engaged and pressure constant as the board carves through the turn — do not stand up or let it skid flat.',
       },
       {
         image: 'bottomturn-step-6',
-        title: 'Exit with speed',
+        title: 'Project up the face',
         description:
-          'Come out of the turn tall and balanced, carrying maximum speed into your next manoeuvre.',
+          'Extend out of the compression to fire the stored energy up the face, projecting the board toward the lip.',
+      },
+      {
+        image: 'bottomturn-step-7',
+        title: 'Bottom turn complete',
+        description:
+          'Come out of the turn tall and balanced, carrying maximum speed and set up perfectly for your next manoeuvre.',
       },
     ],
   },
