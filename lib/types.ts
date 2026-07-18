@@ -31,6 +31,8 @@ export interface PackStep {
   image: string;
   summary: string;
   cues: string[];
+  /** YouTube video id (the part after v=) for an optional "Watch" tutorial */
+  videoId?: string;
 }
 
 export interface Pack {

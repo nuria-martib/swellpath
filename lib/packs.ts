@@ -1,5 +1,9 @@
 import type { CommunitySpot, Pack } from './types';
 
+// To attach a tutorial video to a step, set its `videoId` to a YouTube
+// video id — the part after `v=` in a watch URL (e.g. for
+// https://www.youtube.com/watch?v=dQw4w9WgXcQ the id is "dQw4w9WgXcQ").
+// Steps without a videoId simply don't show a "Watch tutorial" button.
 export const PACKS: Pack[] = [
   {
     id: 'pop-up',
@@ -27,6 +31,7 @@ export const PACKS: Pack[] = [
           'Drive the back foot in first, front foot follows',
           'Land low with knees bent, eyes up the line',
         ],
+        videoId: '', // paste YouTube id here
       },
       {
         id: 'popup-ss-2',
@@ -37,6 +42,7 @@ export const PACKS: Pack[] = [
         summary:
           'Find your natural stance width and weighting rolling slowly. The board should feel like an extension of your pop-up landing.',
         cues: ['Feet over the bolts', 'Weight 60% front foot', 'Shoulders stacked over hips'],
+        videoId: '', // paste YouTube id here
       },
       {
         id: 'popup-water-1',
@@ -51,6 +57,7 @@ export const PACKS: Pack[] = [
           'Pop the instant you feel the glide',
           'Chin up — look where you want to go',
         ],
+        videoId: '', // paste YouTube id here
       },
     ],
   },
@@ -75,6 +82,7 @@ export const PACKS: Pack[] = [
         image: 'surfskate',
         summary: 'Generate speed by compressing and extending through carves on a gentle bank.',
         cues: ['Bend deep in the turn', 'Extend as you come out', 'Lead with your eyes and chest'],
+        videoId: '', // paste YouTube id here
       },
       {
         id: 'bt-ss-2',
@@ -88,6 +96,7 @@ export const PACKS: Pack[] = [
           'Keep the arc round, not sharp',
           'Trailing arm back',
         ],
+        videoId: '', // paste YouTube id here
       },
       {
         id: 'bt-water-1',
@@ -101,6 +110,7 @@ export const PACKS: Pack[] = [
           'Bury the inside rail',
           'Point your leading hand where you go',
         ],
+        videoId: '', // paste YouTube id here
       },
     ],
   },
@@ -125,6 +135,7 @@ export const PACKS: Pack[] = [
         image: 'carve',
         summary: 'Lead with your head and shoulders through a 180° carve and back.',
         cues: ['Head turns first', 'Open the shoulders fully', 'Trail hand skims the ground'],
+        videoId: '', // paste YouTube id here
       },
       {
         id: 'cb-ss-2',
@@ -134,6 +145,7 @@ export const PACKS: Pack[] = [
         image: 'surfskate',
         summary: 'Complete the arc and rebound cleanly to riding forward again.',
         cues: ['Spot your exit early', 'Re-centre weight on the rebound', 'Stay compressed'],
+        videoId: '', // paste YouTube id here
       },
       {
         id: 'cb-water-1',
@@ -143,6 +155,7 @@ export const PACKS: Pack[] = [
         image: 'wave',
         summary: 'Take speed down the line, arc back to the whitewater, and bounce off it.',
         cues: ['Commit past vertical', 'Look back at the pocket', 'Absorb the foam rebound'],
+        videoId: '', // paste YouTube id here
       },
     ],
   },
@@ -167,6 +180,7 @@ export const PACKS: Pack[] = [
         image: 'carve',
         summary: 'Drive up a bank and snap a quick pivot off the top, then recover.',
         cues: ['Compress on the way up', 'Snap the hips', 'Look back down the line'],
+        videoId: '', // paste YouTube id here
       },
       {
         id: 'tt-water-1',
@@ -176,6 +190,7 @@ export const PACKS: Pack[] = [
         image: 'wave',
         summary: 'Use a bottom turn to project vertically and redirect off the lip.',
         cues: ['Time the lip', 'Keep weight over the board', 'Spot your landing'],
+        videoId: '', // paste YouTube id here
       },
     ],
   },
@@ -200,6 +215,7 @@ export const PACKS: Pack[] = [
         image: 'surfskate',
         summary: 'Groove the pop-and-tuck timing on flat ground and small ramps.',
         cues: ['Load the tail', 'Suck the knees up', 'Level the board in the air'],
+        videoId: '', // paste YouTube id here
       },
       {
         id: 'air-water-1',
@@ -209,6 +225,7 @@ export const PACKS: Pack[] = [
         image: 'wave',
         summary: 'Find a rampy section, project off the lip, and focus on staying over your board.',
         cues: ['Approach with speed', 'Eyes on the landing', 'Stay stacked, absorb on impact'],
+        videoId: '', // paste YouTube id here
       },
     ],
   },

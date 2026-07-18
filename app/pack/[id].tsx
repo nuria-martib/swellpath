@@ -6,13 +6,16 @@ import { Button, Chip, Spinner, Text } from 'heroui-native';
 import {
   CheckCircle2,
   ChevronLeft,
+  ChevronUp,
   Circle,
+  Play,
   Star,
   Upload,
   Video as VideoIcon,
   Waves,
 } from 'lucide-react-native';
 
+import { YouTubePlayer } from '@/components/YouTubePlayer';
 import { packImage } from '@/lib/images';
 import { getPack } from '@/lib/packs';
 import { MAX_ATTEMPTS, useSurfStore } from '@/lib/store';
@@ -189,6 +192,7 @@ function StepRow({
   done: boolean;
   onToggle: () => void;
 }) {
+  const [showVideo, setShowVideo] = useState(false);
   return (
     <View className="bg-surface border-border mt-3 overflow-hidden rounded-2xl border">
       <Image
@@ -221,6 +225,30 @@ function StepRow({
             </View>
           ))}
         </View>
+
+        {step.videoId ? (
+          <>
+            <Pressable
+              onPress={() => setShowVideo((v) => !v)}
+              className="bg-ocean-deep mt-4 flex-row items-center justify-center gap-2 rounded-xl px-4 py-2.5"
+              hitSlop={4}
+            >
+              {showVideo ? (
+                <ChevronUp size={18} color="#ffffff" />
+              ) : (
+                <Play size={18} color="#ffffff" fill="#ffffff" />
+              )}
+              <Text className="text-sm font-bold text-white">
+                {showVideo ? 'Hide video' : 'Watch tutorial'}
+              </Text>
+            </Pressable>
+            {showVideo ? (
+              <View className="mt-3">
+                <YouTubePlayer videoId={step.videoId} />
+              </View>
+            ) : null}
+          </>
+        ) : null}
       </View>
     </View>
   );
