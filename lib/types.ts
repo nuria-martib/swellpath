@@ -86,11 +86,19 @@ export interface Submission {
   feedback?: CoachFeedback;
 }
 
+/** Whether an activity happened in the water (surfing) or on land (surfskating). */
+export type SurfActivity = 'surf' | 'surfskate';
+
+/** A pin on the map: a surf beach (in the water) or a surfskate park (out of water). */
+export type SpotType = 'beach' | 'park';
+
 export interface SurfSession {
   id: string;
   title: string;
   date: string; // ISO date (yyyy-mm-dd)
   spotName: string;
+  /** surf session (in water) or surfskate session (on land) */
+  activity: SurfActivity;
   durationMinutes: number;
   waveCount: number;
   rating: number; // 1-5
@@ -102,6 +110,8 @@ export interface SurfSpot {
   name: string;
   latitude: number;
   longitude: number;
+  /** beach = surf spot (on water), park = surfskate park (out of water) */
+  spotType: SpotType;
   breakType: 'beach' | 'point' | 'reef';
   comment?: string;
   sessions: number;
@@ -116,4 +126,14 @@ export interface CommunitySpot {
   longitude: number;
   comment: string;
   rating: number;
+}
+
+/** A pre-seeded, well-known spot (surf beach or surfskate park). */
+export interface KnownSpot {
+  id: string;
+  name: string;
+  spotType: SpotType;
+  latitude: number;
+  longitude: number;
+  comment: string;
 }

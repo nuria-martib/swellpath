@@ -7,11 +7,12 @@ import { CalendarDays, Star } from 'lucide-react-native';
 
 import { MonthCalendar } from '@/components/MonthCalendar';
 import { useSurfStore } from '@/lib/store';
+import type { SurfActivity } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
 export default function LogSession() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ id?: string; date?: string }>();
+  const params = useLocalSearchParams<{ id?: string; date?: string; activity?: string }>();
   const addSession = useSurfStore((s) => s.addSession);
   const updateSession = useSurfStore((s) => s.updateSession);
   const spots = useSurfStore((s) => s.spots);
@@ -22,12 +23,21 @@ export default function LogSession() {
     [params.id, sessions],
   );
 
+  const [activity, setActivity] = useState<SurfActivity>(
+    editing?.activity ?? (params.activity === 'surfskate' ? 'surfskate' : 'surf'),
+  );
   const [title, setTitle] = useState(editing?.title ?? '');
   const [spotName, setSpotName] = useState(editing?.spotName ?? '');
   const [duration, setDuration] = useState(String(editing?.durationMinutes ?? 90));
   const [waves, setWaves] = useState(String(editing?.waveCount ?? 10));
   const [rating, setRating] = useState(editing?.rating ?? 4);
   const [notes, setNotes] = useState(editing?.notes ?? '');
+
+  const isSkate = activity === 'surfskate';
+  const spotChips = useMemo(
+    () => spots.filter((s) => (isSkate ? s.spotType === 'park' : s.spotType === 'beach')),
+    [spots, isSkate],
+  );
 
   const [date, setDate] = useState(
     editing?.date ??
@@ -42,6 +52,7 @@ export default function LogSession() {
       title: title.trim(),
       date,
       spotName: spotName.trim(),
+      activity,
       durationMinutes: Number(duration) || 0,
       waveCount: Number(waves) || 0,
       rating,
@@ -91,19 +102,57 @@ export default function LogSession() {
           />
         ) : null}
 
+        <View>
+          <Label>Type of session</Label>
+          <View className="mt-2 flex-row gap-2">
+            {(
+              [
+                { value: 'surf', label: 'Surf session' },
+                { value: 'surfskate', label: 'Surfskate session' },
+              ] as const
+            ).map((opt) => (
+              <Pressable
+                key={opt.value}
+                onPress={() => setActivity(opt.value)}
+                className={cn(
+                  'flex-1 items-center rounded-xl border-2 py-2.5',
+                  activity === opt.value ? 'border-ocean bg-ocean/10' : 'border-border',
+                )}
+              >
+                <Text
+                  className={cn(
+                    'text-sm font-semibold',
+                    activity === opt.value ? 'text-ocean-deep' : 'text-slate-soft',
+                  )}
+                >
+                  {opt.label}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+
         <TextField>
           <Label>Title</Label>
-          <Input placeholder="Dawn patrol, glassy peaks…" value={title} onChangeText={setTitle} />
+          <Input
+            placeholder={isSkate ? 'Evening carve session…' : 'Dawn patrol, glassy peaks…'}
+            value={title}
+            onChangeText={setTitle}
+          />
         </TextField>
 
         <TextField>
-          <Label>Spot</Label>
-          <Input placeholder="Where did you surf?" value={spotName} onChangeText={setSpotName} />
+          <Label>{isSkate ? 'Park' : 'Spot'}</Label>
+          <Input
+            placeholder={isSkate ? 'Which surfskate park?' : 'Where did you surf?'}
+            value={spotName}
+            onChangeText={setSpotName}
+          />
         </TextField>
 
-        {spots.length > 0 ? (
+        {spotChips.length > 0 ? (
           <View className="flex-row flex-wrap gap-2">
-            {spots.slice(0, 6).map((s) => (
+            {spotChips.slice(0, 6).map((s) => (
               <Pressable
                 key={s.id}
                 onPress={() => setSpotName(s.name)}
@@ -124,7 +173,7 @@ export default function LogSession() {
           </View>
           <View className="flex-1">
             <TextField>
-              <Label>Waves caught</Label>
+              <Label>{isSkate ? 'Tricks landed' : 'Waves caught'}</Label>
               <Input keyboardType="number-pad" value={waves} onChangeText={setWaves} />
             </TextField>
           </View>

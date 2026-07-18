@@ -63,6 +63,7 @@ interface SessionRow {
   title: string;
   date: string;
   spot_name: string;
+  activity: SurfSession['activity'];
   duration_minutes: number;
   wave_count: number;
   rating: number;
@@ -74,6 +75,7 @@ interface SpotRow {
   name: string;
   latitude: number;
   longitude: number;
+  spot_type: SurfSpot['spotType'];
   break_type: SurfSpot['breakType'];
   comment: string | null;
   sessions: number;
@@ -158,6 +160,7 @@ export const useSurfStore = create<SurfState>()((set, get) => ({
         title: r.title,
         date: r.date,
         spotName: r.spot_name,
+        activity: r.activity ?? 'surf',
         durationMinutes: r.duration_minutes,
         waveCount: r.wave_count,
         rating: r.rating,
@@ -168,6 +171,7 @@ export const useSurfStore = create<SurfState>()((set, get) => ({
         name: r.name,
         latitude: r.latitude,
         longitude: r.longitude,
+        spotType: r.spot_type ?? 'beach',
         breakType: r.break_type,
         comment: r.comment ?? undefined,
         sessions: r.sessions,
@@ -326,6 +330,7 @@ export const useSurfStore = create<SurfState>()((set, get) => ({
         title: session.title,
         date: session.date,
         spot_name: session.spotName,
+        activity: session.activity,
         duration_minutes: session.durationMinutes,
         wave_count: session.waveCount,
         rating: session.rating,
@@ -347,6 +352,7 @@ export const useSurfStore = create<SurfState>()((set, get) => ({
         title: patch.title,
         date: patch.date,
         spot_name: patch.spotName,
+        activity: patch.activity,
         duration_minutes: patch.durationMinutes,
         wave_count: patch.waveCount,
         rating: patch.rating,
@@ -371,6 +377,7 @@ export const useSurfStore = create<SurfState>()((set, get) => ({
         name: spot.name,
         latitude: spot.latitude,
         longitude: spot.longitude,
+        spot_type: spot.spotType,
         break_type: spot.breakType,
         comment: spot.comment ?? null,
         sessions: 1,

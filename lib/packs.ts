@@ -1,4 +1,4 @@
-import type { CommunitySpot, Pack } from './types';
+import type { CommunitySpot, KnownSpot, Pack } from './types';
 // To attach a tutorial video to a step, set its `videoId` to a YouTube
 // video id — the part after `v=` in a watch URL (e.g. for
 // https://www.youtube.com/watch?v=dQw4w9WgXcQ the id is "dQw4w9WgXcQ").
@@ -449,5 +449,79 @@ export const COMMUNITY_SPOTS: CommunitySpot[] = [
     longitude: -9.3345,
     comment: 'Consistent city beach break. Fun rampy sections for your first airs.',
     rating: 4,
+  },
+];
+
+/**
+ * Pre-seeded, well-known spots shown on the map in a distinct colour from the
+ * user's own recorded spots. Includes surf beaches (on water) and surfskate
+ * parks (out of water).
+ */
+export const KNOWN_SPOTS: KnownSpot[] = [
+  // Surf beaches
+  {
+    id: 'k-beach-1',
+    name: 'Ericeira – Ribeira d’Ilhas',
+    spotType: 'beach',
+    latitude: 38.9631,
+    longitude: -9.4181,
+    comment: 'Long right-hand point, mellow on smaller days. Great for cutbacks.',
+  },
+  {
+    id: 'k-beach-2',
+    name: 'Supertubos, Peniche',
+    spotType: 'beach',
+    latitude: 39.3436,
+    longitude: -9.3625,
+    comment: 'Heavy beach-break barrels. World Tour venue.',
+  },
+  {
+    id: 'k-beach-3',
+    name: 'Biarritz – Grande Plage',
+    spotType: 'beach',
+    latitude: 43.4832,
+    longitude: -1.5586,
+    comment: 'Forgiving beach break, perfect for pop-up and bottom-turn reps.',
+  },
+  {
+    id: 'k-beach-4',
+    name: 'Hossegor – La Gravière',
+    spotType: 'beach',
+    latitude: 43.6664,
+    longitude: -1.4425,
+    comment: 'Punchy, hollow beach break when the banks line up.',
+  },
+  // Surfskate parks
+  {
+    id: 'k-park-1',
+    name: 'Lisboa – Parque Skate de Alcântara',
+    spotType: 'park',
+    latitude: 38.7031,
+    longitude: -9.1772,
+    comment: 'Smooth bowl and flowing lines — ideal for carve and pump drills.',
+  },
+  {
+    id: 'k-park-2',
+    name: 'Ericeira Skate Bowl',
+    spotType: 'park',
+    latitude: 38.9629,
+    longitude: -9.4157,
+    comment: 'Mellow transitions a few minutes from the beach. Great warm-up.',
+  },
+  {
+    id: 'k-park-3',
+    name: 'Biarritz – Skatepark de la Milady',
+    spotType: 'park',
+    latitude: 43.4623,
+    longitude: -1.5709,
+    comment: 'Seaside park with long banks perfect for surfskate flow.',
+  },
+  {
+    id: 'k-park-4',
+    name: 'Hossegor – Skatepark',
+    spotType: 'park',
+    latitude: 43.6612,
+    longitude: -1.3958,
+    comment: 'Open concrete with rolling transitions for compression pumps.',
   },
 ];
